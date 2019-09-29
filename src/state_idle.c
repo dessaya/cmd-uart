@@ -1,14 +1,8 @@
-#include <string.h>
 #include "state_idle.h"
 #include "terminal.h"
+#include "command_line.h"
 
-typedef struct {
-    char *cmd;
-    signal_t signal;
-    char *help;
-} cmd_t;
-
-cmd_t commands[] = {
+static cmd_t commands[] = {
     {"pvpub", SIGNAL_SET_MODE_PV_PUBLISHER, "Switch to Process Variable Publisher mode"},
     {"pvsub", SIGNAL_SET_MODE_PV_SUBSCRIBER, "Switch to Process Variable Subscriber mode"},
     {"msgsend", SIGNAL_SET_MODE_MSG_SENDER, "Switch to Call/Reply Message Sender"},
@@ -18,40 +12,12 @@ cmd_t commands[] = {
     {NULL, SIGNAL_NONE, NULL},
 };
 
-static cmd_t *cmd_find(char *line) {
-    for (cmd_t *cmd = commands; cmd->cmd; cmd++) {
-        if (strcmp(cmd->cmd, line) == 0) {
-            return cmd;
-        }
-    }
-    return NULL;
-}
-
-static void print_help() {
-    terminal_println("Commands:");
-    for (cmd_t *cmd = commands; cmd->cmd; cmd++) {
-        terminal_print("  ");
-        terminal_print(cmd->cmd);
-        terminal_print(": ");
-        terminal_print(cmd->help);
-    }
-}
-
 signal_t state_idle_enter(tick_t elapsed) {
     terminal_println("Entered idle mode");
-    print_help();
+    cmd_print_help(commands);
 }
 
 signal_t state_idle_update(tick_t elapsed) {
-    char *line = terminal_readline();
-    if (line) {
-        cmd_t *cmd = cmd_find(line);
-        if (cmd) {
-            return cmd->signal;
-        } else {
-            print_help();
-        }
-    }
-    return SIGNAL_NONE;
+    return cmd_readline(commands);
 }
 
