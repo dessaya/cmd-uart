@@ -1,7 +1,5 @@
-#ifndef _states_h_
-#define _states_h_
-
-#include "sapi.h"
+#ifndef _fsm_signals_h_
+#define _fsm_signals_h_
 
 typedef enum {
     SIGNAL_NONE = 0,
@@ -13,7 +11,5 @@ typedef enum {
     SIGNAL_SET_MODE_MSG_MULTICAST_SENDER,
     SIGNAL_SET_MODE_MSG_MULTICAST_RECEIVER,
 } signal_t;
-
-void fsm_loop();
 
 #endif

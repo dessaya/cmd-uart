@@ -1,5 +1,5 @@
 #include "sapi.h"
-#include "states.h"
+#include "fsm.h"
 #include "terminal.h"
 
 int main()

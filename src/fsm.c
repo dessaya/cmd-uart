@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
-#include "states.h"
+#include "fsm.h"
 #include "state_init.h"
 
 typedef enum {
