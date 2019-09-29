@@ -12,7 +12,7 @@ static cmd_t commands[] = {
     {NULL, SIGNAL_NONE, NULL},
 };
 
-signal_t state_idle_enter(tick_t elapsed) {
+void state_idle_enter() {
     terminal_println("Entered idle mode");
     cmd_print_help(commands);
 }

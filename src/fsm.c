@@ -3,6 +3,7 @@
 #include "fsm.h"
 #include "state_init.h"
 #include "state_idle.h"
+#include "states_tcn.h"
 
 typedef enum {
     STATE_INIT,
@@ -25,13 +26,13 @@ static signal_t noop_update(tick_t elapsed) { return SIGNAL_NONE; }
 
 static state_t states[] = {
     [STATE_INIT] = {noop_enter, state_init_update},
-    [STATE_IDLE] = {noop_enter, state_idle_update},
-    [STATE_PV_PUBLISHER] = {noop_enter, noop_update},
-    [STATE_PV_SUBSCRIBER] = {noop_enter, noop_update},
-    [STATE_MSG_SENDER] = {noop_enter, noop_update},
-    [STATE_MSG_RECEIVER] = {noop_enter, noop_update},
-    [STATE_MSG_MULTICAST_SENDER] = {noop_enter, noop_update},
-    [STATE_MSG_MULTICAST_RECEIVER] = {noop_enter, noop_update},
+    [STATE_IDLE] = {state_idle_enter, state_idle_update},
+    [STATE_PV_PUBLISHER] = {state_pvpub_enter, state_pvpub_update},
+    [STATE_PV_SUBSCRIBER] = {state_pvsub_enter, state_pvsub_update},
+    [STATE_MSG_SENDER] = {state_msgsend_enter, state_msgsend_update},
+    [STATE_MSG_RECEIVER] = {state_msgrcv_enter, state_msgrcv_update},
+    [STATE_MSG_MULTICAST_SENDER] = {state_mulsend_enter, state_mulsend_update},
+    [STATE_MSG_MULTICAST_RECEIVER] = {state_mulrcv_enter, state_mulrcv_update},
 };
 
 typedef struct {
