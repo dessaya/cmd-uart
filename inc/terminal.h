@@ -1,9 +1,9 @@
 #ifndef _terminal_h_
 #define _terminal_h_
 
-void terminalInit();
-void terminalPrint(const char* str);
-void terminalPrintLn(const char* str);
-const char *terminalReceivedCommand();
+void terminal_init();
+void terminal_print(const char* str);
+void terminal_println(const char* str);
+char *terminal_readline();
 
 #endif

@@ -9,7 +9,7 @@ signal_t state_init_update(tick_t elapsed) {
     }
     gpioWrite(LED, false);
 
-    terminalPrintLn("Initialized");
+    terminal_println("Initialized");
     return SIGNAL_DONE;
 }
 

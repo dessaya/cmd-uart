@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "fsm.h"
 #include "state_init.h"
+#include "state_idle.h"
 
 typedef enum {
     STATE_INIT,
@@ -22,9 +23,9 @@ typedef struct {
 static void noop_enter() {}
 static signal_t noop_update(tick_t elapsed) { return SIGNAL_NONE; }
 
-state_t states[] = {
+static state_t states[] = {
     [STATE_INIT] = {noop_enter, state_init_update},
-    [STATE_IDLE] = {noop_enter, noop_update},
+    [STATE_IDLE] = {noop_enter, state_idle_update},
     [STATE_PV_PUBLISHER] = {noop_enter, noop_update},
     [STATE_PV_SUBSCRIBER] = {noop_enter, noop_update},
     [STATE_MSG_SENDER] = {noop_enter, noop_update},
@@ -39,7 +40,7 @@ typedef struct {
     state_id_t next_state_id;
 } transition_t;
 
-transition_t transitions[] = {
+static transition_t transitions[] = {
     {STATE_INIT, SIGNAL_DONE, STATE_IDLE},
 
     {STATE_IDLE, SIGNAL_SET_MODE_PV_PUBLISHER, STATE_PV_PUBLISHER},
@@ -64,7 +65,7 @@ transition_t transitions[] = {
     {0, 0, 0},
 };
 
-transition_t *find_transition(state_id_t state_id, signal_t signal) {
+static transition_t *find_transition(state_id_t state_id, signal_t signal) {
     for (transition_t *t = transitions; t->signal; t++) {
         if (t->state_id == state_id && t->signal == signal) {
             return t;

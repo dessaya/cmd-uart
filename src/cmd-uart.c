@@ -5,7 +5,7 @@
 int main()
 {
     boardInit();
-    terminalInit();
+    terminal_init();
     fsm_loop();
     return 0;
 }
