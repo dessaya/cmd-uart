@@ -4,6 +4,7 @@
 #include "fsm_signals.h"
 #include "sapi.h"
 
+void state_init_enter();
 signal_t state_init_update(tick_t elapsed);
 
 #endif

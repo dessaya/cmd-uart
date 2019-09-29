@@ -21,11 +21,8 @@ typedef struct {
     signal_t (*update)(tick_t elapsed);
 } state_t;
 
-static void noop_enter() {}
-static signal_t noop_update(tick_t elapsed) { return SIGNAL_NONE; }
-
 static state_t states[] = {
-    [STATE_INIT] = {noop_enter, state_init_update},
+    [STATE_INIT] = {state_init_enter, state_init_update},
     [STATE_IDLE] = {state_idle_enter, state_idle_update},
     [STATE_PV_PUBLISHER] = {state_pvpub_enter, state_pvpub_update},
     [STATE_PV_SUBSCRIBER] = {state_pvsub_enter, state_pvsub_update},
